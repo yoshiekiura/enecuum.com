@@ -5,40 +5,54 @@
       <el-col :xs="22" :sm="10" :md="12" :xl="10">
         <el-row :gutter="30" class="flex-center flex-wrap flex-column">
           <h3 class="text-center title-semibold text-uppercase mb13">Your balance</h3>
-          <h4 class="text-center title-bold title-middle mb13">ENQ 30,00000000</h4>
+          <h4 class="text-center title-bold title-middle mb13">ENQ 00,00000000</h4>
           <el-alert
             class="enq-alert"
-            :title="'Be aware! Contributing is available for the following legally approved Ethereum wallets: (список кошельков) Using exchanges is prohibited! You can contribute directly from your approved Ethereum wallet: 0x0682672607683a37439311fc1fe6b5540cef3e51'"
-            type="info">
+            :title="'Be aware! Contributing is available only for the legally approved whitelisted wallets. Using exchanges is prohibited! You can contribute only directly from your wallet: '+userInfo.wallet"
+            type="info"
+            :closable="false">
           </el-alert>
           <h4 class="text-center title-bold title-middle mb13 flex-center flex-middle addr-wrapper">
-            <span class="addr">{{eth_address}}</span> <img
+            <span class="addr">0x*****************************</span> <img
             src="/img/icons/copy.svg" class="ml13 account-copy"
             alt="" @click="copy"></h4>
+          <el-alert
+            title="Your wallet is not whitelisted yet, please wait"
+            type="error"
+            center
+            :closable="false" v-if="!verified"></el-alert>
         </el-row>
       </el-col>
     </el-row>
-    <accountForm></accountForm>
+    <accountForm v-if="dev" :verified="verified"></accountForm>
+    <tokenVesting v-if="dev" :userInfo="userInfo" :verified="verified"></tokenVesting>
   </section>
 </template>
 
 <script>
   import accountForm from '@/components/account/accountForm';
+  import tokenVesting from '@/components/account/tokenVesting';
 
   export default {
     name: "faq",
+    middleware: 'auth',
     data() {
       return {
-        eth_address: '0x0682672607683a37439311fc1fe6b5540cef3e51'
+        verified: false,
+        dev: this.$store.state.debug,
+        userInfo: {
+          wallet: ''
+        },
       }
     },
     components: {
-      accountForm
+      accountForm,
+      tokenVesting
     },
     methods: {
       copy() {
         let inp = document.createElement('input');
-        inp.value = this.eth_address;
+        inp.value = this.userInfo.wallet;
         inp.classList.add('forselect');
         inp.style.position = 'fixed';
         inp.style.top = '-100%';
@@ -52,6 +66,9 @@
         }
         addr.remove();
       }
+    },
+    mounted() {
+      this.userInfo = this.$store.state.kyc.message;
     }
   }
 </script>
