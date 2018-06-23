@@ -32,7 +32,7 @@
         <p class="text-center">If you have any more questions, please email our support at <br> <a
           href="mailto:support@enecuum.com">support@enecuum.com</a></p>
         <h3 class="text-center title-under mb13"><a href="/docs/Enecuum_TokenSale_Terms_and_Conditions.pdf"
-                                                    target="_blank">Terms & Conditions</a></h3>
+                                                    target="_blank">Token Sale Terms and Conditions</a></h3>
       </el-col>
     </el-row>
   </section>
