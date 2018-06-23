@@ -13,9 +13,10 @@
             :closable="false">
           </el-alert>
           <h4 class="text-center title-bold title-middle mb13 flex-center flex-middle addr-wrapper">
-            <span class="addr">0x*****************************</span> <img
-            src="/img/icons/copy.svg" class="ml13 account-copy"
-            alt="" @click="copy"></h4>
+            <span class="addr">0x*****************************</span> <img v-if="dev"
+                                                                           src="/img/icons/copy.svg"
+                                                                           class="ml13 account-copy"
+                                                                           alt="" @click="copy"></h4>
           <el-alert
             title="Your wallet is not whitelisted yet, please wait"
             type="error"
@@ -26,6 +27,14 @@
     </el-row>
     <accountForm v-if="dev" :verified="verified"></accountForm>
     <tokenVesting v-if="dev" :userInfo="userInfo" :verified="verified"></tokenVesting>
+    <el-row class="flex-center">
+      <el-col :xs="22" :sm="16" :md="16" :lg="14" :xl="14">
+        <p class="text-center">If you have any more questions, please email our support at <br> <a
+          href="mailto:support@enecuum.com">support@enecuum.com</a></p>
+        <h3 class="text-center title-under mb13"><a href="/docs/Enecuum_TokenSale_Terms_and_Conditions.pdf"
+                                                    target="_blank">Terms & Conditions</a></h3>
+      </el-col>
+    </el-row>
   </section>
 </template>
 
