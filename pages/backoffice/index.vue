@@ -19,7 +19,7 @@
                                                                            alt="" @click="copy"></h4>
           <el-alert
             title="Your wallet is not whitelisted yet, please wait"
-            type="error"
+            type="warning"
             center
             :closable="false" v-if="!verified"></el-alert>
         </el-row>
