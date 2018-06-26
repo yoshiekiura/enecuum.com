@@ -114,7 +114,11 @@
         if (document.createRange) {
           addr.select();
           document.execCommand('copy');
-          this.$message('Wallet copied');
+          this.$notify({
+            type: 'info',
+            message: 'wallet copied',
+            position: 'bottom-left',
+          });
         }
         addr.remove();
       },
@@ -175,6 +179,7 @@
       }
     },
     mounted() {
+      console.log(process.env);
       this.userInfo = this.$store.state.kyc.message;
       this.userInfo.balance = bn(bn(this.userInfo.balance).dividedBy("1e10").toFixed(10)).toNumber();
     },
