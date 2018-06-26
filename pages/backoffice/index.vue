@@ -179,7 +179,6 @@
       }
     },
     mounted() {
-      console.log(process.env);
       this.userInfo = this.$store.state.kyc.message;
       this.userInfo.balance = bn(bn(this.userInfo.balance).dividedBy("1e10").toFixed(10)).toNumber();
     },
