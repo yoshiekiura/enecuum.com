@@ -181,6 +181,9 @@
     mounted() {
       this.userInfo = this.$store.state.kyc.message;
       this.userInfo.balance = bn(bn(this.userInfo.balance).dividedBy("1e10").toFixed(10)).toNumber();
+      socket.on('depositUpdates', (info) => {
+        this.userInfo.balance = bn(bn(this.userInfo.balance).plus(bn(info.amount))).toNumber();
+      });
     },
     created() {
       if (this.$store.state.kyc.code === 200) {
