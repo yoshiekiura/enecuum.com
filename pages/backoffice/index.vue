@@ -148,6 +148,7 @@
             setTimeout(() => {
               this.detectNetwork();
             }, 15000);
+            return false;
           }
           if (address) setTimeout(() => {
             web3.eth.getCoinbase((error, result) => {
