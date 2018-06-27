@@ -12,7 +12,6 @@
               :decimals="10"
               :duration="4"
               :options="easingOptions"
-              @ready="onReady"
             />
           </h4>
           <el-alert
@@ -32,6 +31,7 @@
             title="Your wallet is not whitelisted yet, please wait"
             type="warning"
             center
+            class="mt40 mb40"
             :closable="false" v-if="!verified"></el-alert>
         </el-row>
         <el-row class="flex-center">
@@ -99,9 +99,6 @@
       ICountUp
     },
     methods: {
-      onReady: (instance, CountUp) => {
-        //instance.update( + 100);
-      },
       copy() {
         let inp = document.createElement('input');
         inp.value = this.userInfo.wallet;
@@ -182,7 +179,8 @@
       this.userInfo = this.$store.state.kyc.message;
       this.userInfo.balance = bn(bn(this.userInfo.balance).dividedBy("1e10").toFixed(10)).toNumber();
       socket.on('depositUpdates', (info) => {
-        this.userInfo.balance = bn(bn(this.userInfo.balance).plus(bn(info.amount))).toNumber();
+        let me = (this.$store.state.web3wallet.toLocaleLowerCase() === info.sender.toLocaleLowerCase()) ? true : false;
+        me ? (this.userInfo.balance = bn(bn(this.userInfo.balance).plus(bn(info.amount))).toNumber()) : null;
       });
     },
     created() {
