@@ -53,7 +53,8 @@
         </el-row>
       </el-col>
     </el-row>
-    <accountForm v-if="verified" :web3info="web3info" :verified="verified" :userInfo="userInfo"></accountForm>
+    <accountForm v-if="verified" :web3info="web3info" :address="contractInfo.contractAddress"
+                 :verified="verified" :userInfo="userInfo"></accountForm>
     <tokenVesting v-if="false" :userInfo="userInfo" :verified="verified"></tokenVesting>
     <el-row class="flex-center mb40">
       <el-col :xs="22" :sm="16" :md="16" :lg="14" :xl="14">
