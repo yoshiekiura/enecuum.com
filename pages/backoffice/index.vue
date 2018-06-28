@@ -20,6 +20,14 @@
             type="info"
             :closable="false">
           </el-alert>
+          <el-alert
+            title="address for contribute"
+            type="warning"
+            class="mt13 mb40"
+            v-if="verified"
+            center
+            :closable="false">
+          </el-alert>
           <h4 class="text-center title-bold title-middle mb0 flex-center flex-middle addr-wrapper">
             <span
               class="addr">{{contractInfo.contractAddress}}</span>
