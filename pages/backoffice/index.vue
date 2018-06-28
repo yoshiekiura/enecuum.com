@@ -30,9 +30,10 @@
           </el-alert>
           <h4 class="text-center title-bold title-middle mb0 flex-center flex-middle addr-wrapper">
             <span
-              class="addr">{{contractInfo.contractAddress}}</span>
+              class="addr" v-if="verified">{{contractInfo.contractAddress}}</span>
             <img src="/img/icons/copy.svg"
                  class="ml13 account-copy"
+                 v-if="verified"
                  alt="" @click="copy"></h4>
           <el-alert
             title="Your wallet is not whitelisted yet, please wait"
