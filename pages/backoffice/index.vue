@@ -22,9 +22,8 @@
           </el-alert>
           <h4 class="text-center title-bold title-middle mb0 flex-center flex-middle addr-wrapper">
             <span
-              class="addr">{{!web3Loaded ? '0x*************************************' :contractInfo.contractAddress}}</span>
-            <img v-if="web3Loaded"
-                 src="/img/icons/copy.svg"
+              class="addr">{{contractInfo.contractAddress}}</span>
+            <img src="/img/icons/copy.svg"
                  class="ml13 account-copy"
                  alt="" @click="copy"></h4>
           <el-alert
@@ -37,7 +36,7 @@
         <el-row class="flex-center">
           <el-alert
             :title="'Your current coinbase account is set to ' + userInfo.currentWallet + ', but it must be equal to ' + userInfo.wallet"
-            v-if="web3LoadedText==='Waiting for changing your coinbase account'"
+            v-if="web3info.text==='Waiting for changing your coinbase account'"
             type="error"
             class="mt40"
             center
@@ -46,8 +45,7 @@
         </el-row>
       </el-col>
     </el-row>
-    <accountForm v-if="verified" v-loading="!web3Loaded" :verified="verified"
-                 :element-loading-text="web3LoadedText" :userInfo="userInfo"></accountForm>
+    <accountForm v-if="verified" :web3info="web3info" :verified="verified" :userInfo="userInfo"></accountForm>
     <tokenVesting v-if="false" :userInfo="userInfo" :verified="verified"></tokenVesting>
     <el-row class="flex-center mb40">
       <el-col :xs="22" :sm="16" :md="16" :lg="14" :xl="14">
@@ -73,8 +71,10 @@
     middleware: 'auth',
     data() {
       return {
-        web3Loaded: false,
-        web3LoadedText: 'Waiting for MetaMask or Mist Browser',
+        web3info: {
+          loaded: false,
+          text: 'Waiting for MetaMask or Mist Browser'
+        },
         verified: false,
         contractInfo: {
           contractAddress: config.provider.contract
@@ -124,28 +124,28 @@
         web3.version.getNetwork((err, netId) => {
           switch (netId) {
             case "1":
-              this.web3LoadedText = 'Connecting to MainNet';
+              this.web3info.text = 'Connecting to MainNet';
               address = this.contractInfo.contractAddress;
               break;
             case "2":
-              this.web3LoadedText = 'You\'re using deprecated Morden test network';
+              this.web3info.text = 'You\'re using deprecated Morden test network';
               setTimeout(() => {
                 this.detectNetwork();
               }, 15000);
               break;
             case "3":
-              this.web3LoadedText = 'Connecting to Ropsten';
+              this.web3info.text = 'Connecting to Ropsten';
               this.userInfo.currentNetwork = 'ropsten.';
               address = this.contractInfo.contractAddress;
               break;
             default:
-              this.web3LoadedText = 'Connect to MainNet or Ropsten';
+              this.web3info.text = 'Connect to MainNet or Ropsten';
               setTimeout(() => {
                 this.detectNetwork();
               }, 15000);
           }
           if (web3.eth.accounts.length < 1) {
-            this.web3LoadedText = 'Please unlock your account';
+            this.web3info.text = 'Please unlock your account';
             setTimeout(() => {
               this.detectNetwork();
             }, 15000);
@@ -154,7 +154,7 @@
           if (address) setTimeout(() => {
             web3.eth.getCoinbase((error, result) => {
               if (error) {
-                this.web3LoadedText = 'Wa can\'t detect your coinbase account';
+                this.web3info.text = 'Wa can\'t detect your coinbase account';
                 setTimeout(() => {
                   this.detectNetwork();
                 }, 15000);
@@ -162,12 +162,12 @@
                 this.userInfo.currentWallet = result;
                 this.$store.commit('SET_WEB3WALLET', result);
                 if (this.userInfo.wallet.toLocaleLowerCase() !== result.toLocaleLowerCase()) {
-                  this.web3LoadedText = 'Waiting for changing your coinbase account';
+                  this.web3info.text = 'Waiting for changing your coinbase account';
                   setTimeout(() => {
                     this.detectNetwork();
                   }, 15000);
                 } else {
-                  this.web3Loaded = true;
+                  this.web3info.loaded = true;
                 }
               }
             });
@@ -188,7 +188,7 @@
         this.verified = true;
         setTimeout(() => {
           if (typeof web3 !== 'undefined') {
-            this.web3LoadedText = 'Detecting Network';
+            this.web3info.text = 'Detecting Network';
             this.detectNetwork();
           }
         }, 1000);
