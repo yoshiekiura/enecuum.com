@@ -101,7 +101,7 @@
     methods: {
       copy() {
         let inp = document.createElement('input');
-        inp.value = this.userInfo.wallet;
+        inp.value = this.contractInfo.contractAddress;
         inp.classList.add('forselect');
         inp.style.position = 'fixed';
         inp.style.top = '-100%';
