@@ -69,8 +69,7 @@
 <script>
   import accountForm from '@/components/account/accountForm';
   import tokenVesting from '@/components/account/tokenVesting';
-  import socket from '~/plugins/socket.io.js'
-  import config from '@/io/config.js';
+  import socket from '~/plugins/socket.io.js';
   import ICountUp from 'vue-countup-v2';
   import bn from 'bignumber.js';
 
@@ -85,7 +84,7 @@
         },
         verified: false,
         contractInfo: {
-          contractAddress: config.provider.contract
+          contractAddress: ''
         },
         userInfo: {
           wallet: '',
@@ -133,6 +132,7 @@
           switch (netId) {
             case "1":
               this.web3info.text = 'Connecting to MainNet';
+              this.contractInfo.contractAddress = require('./../../config/config').web3.mainnet.contracts.token.address;
               address = this.contractInfo.contractAddress;
               break;
             case "2":
@@ -144,6 +144,7 @@
             case "3":
               this.web3info.text = 'Connecting to Ropsten';
               this.userInfo.currentNetwork = 'ropsten.';
+              this.contractInfo.contractAddress = require('./../../config/config').web3.ropsten.contracts.token.address;
               address = this.contractInfo.contractAddress;
               break;
             default:
