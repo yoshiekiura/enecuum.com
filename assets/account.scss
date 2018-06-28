@@ -5,7 +5,7 @@
   &__form {
     width: 100%;
     &-wrapper {
-      margin: 52px 0px 65px 0px;
+      margin: 40px 0px 65px 0px;
       background-color: #f8f8f8;
     }
     .el-form {
@@ -28,10 +28,12 @@
           width: 100%;
           padding: 16px;
           margin-bottom: 0px;
+          margin-top: 0px;
           &:last-child {
             flex-grow: 1;
             margin-top: 0px;
             text-align: center;
+            padding-top: 16px;
             .el-button {
               max-width: 170px;
             }
@@ -51,6 +53,7 @@
       flex-direction: column;
       &-wrapper {
         margin-top: 12px;
+        padding-bottom: 46px;
       }
     }
   }
