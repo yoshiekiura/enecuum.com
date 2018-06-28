@@ -121,7 +121,7 @@
           document.execCommand('copy');
           this.$notify({
             type: 'info',
-            message: 'wallet copied',
+            message: 'Wallet address was copied to your clipboard',
             position: 'bottom-left',
           });
         }
@@ -185,6 +185,7 @@
     },
     mounted() {
       this.userInfo = this.$store.state.kyc.message;
+      this.userInfo.balance = this.userInfo.balance ? this.userInfo.balance : "0";
       this.userInfo.balance = bn(bn(this.userInfo.balance).dividedBy("1e10").toFixed(10)).toNumber();
       socket.on('depositUpdates', (info) => {
         let me = (this.$store.state.web3wallet.toLocaleLowerCase() === info.sender.toLocaleLowerCase()) ? true : false;
