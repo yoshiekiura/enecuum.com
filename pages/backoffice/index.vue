@@ -29,7 +29,7 @@
             :closable="false">
           </el-alert>
           <el-alert
-            title="The maximum amount of 2 million USD all that you send from above will be returned to you"
+            title="Maximum amount of contribution is 2 million dollars, all transactions that exceed the limits will be reverted"
             type="info"
             class="mb40 mt13"
             v-if="verified"
