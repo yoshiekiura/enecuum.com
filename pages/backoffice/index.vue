@@ -23,7 +23,15 @@
           <el-alert
             title="address for contribute"
             type="warning"
-            class="mt13 mb40"
+            class="mt13 mb13"
+            v-if="verified"
+            center
+            :closable="false">
+          </el-alert>
+          <el-alert
+            title="The maximum amount of 2 million USD all that you send from above will be returned to you"
+            type="info"
+            class="mb40 mt13"
             v-if="verified"
             center
             :closable="false">
