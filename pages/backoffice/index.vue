@@ -86,7 +86,7 @@
         },
         verified: false,
         contractInfo: {
-          contractAddress: ''
+          contractAddress: require('./../../config/config').web3.mainnet.contracts.wallet.address
         },
         userInfo: {
           wallet: '',
@@ -134,7 +134,7 @@
           switch (netId) {
             case "1":
               this.web3info.text = 'Connecting to MainNet';
-              this.contractInfo.contractAddress = require('./../../config/config').web3.mainnet.contracts.token.address;
+              this.contractInfo.contractAddress = require('./../../config/config').web3.mainnet.contracts.wallet.address;
               address = this.contractInfo.contractAddress;
               break;
             case "2":
@@ -146,7 +146,6 @@
             case "3":
               this.web3info.text = 'Connecting to Ropsten';
               this.userInfo.currentNetwork = 'ropsten.';
-              console.log(require('./../../config/config'));
               this.contractInfo.contractAddress = require('./../../config/config').web3.ropsten.contracts.wallet.address;
               address = this.contractInfo.contractAddress;
               break;
