@@ -146,7 +146,8 @@
             case "3":
               this.web3info.text = 'Connecting to Ropsten';
               this.userInfo.currentNetwork = 'ropsten.';
-              this.contractInfo.contractAddress = require('./../../config/config').web3.ropsten.contracts.token.address;
+              console.log(require('./../../config/config'));
+              this.contractInfo.contractAddress = require('./../../config/config').web3.ropsten.contracts.wallet.address;
               address = this.contractInfo.contractAddress;
               break;
             default:
